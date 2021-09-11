@@ -1,1 +1,17 @@
-.Joystream {}
+.Joystream {
+}
+
+.blockHeightEnter {
+    opacity: 0;
+  }
+.blockHeightEnterActive {
+    opacity: 1;
+    transition: opacity 1200ms;
+}
+.blockHeightExit {
+    opacity: 1;
+}
+.blockHeightActive {
+    opacity: 0;
+    transition: opacity 1200ms;
+}

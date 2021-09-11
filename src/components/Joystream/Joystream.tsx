@@ -16,11 +16,17 @@ const Joystream = () => {
     ApiPromise.create({ provider, types }).then((api) =>
       api.isReady.then(() => {
           console.log(`Connected to ${wsLocation}`);
-          api.derive.chain.bestNumber().then((finalizedHeadNumber) => {
-            updateLastBlock(finalizedHeadNumber.toNumber())
-            updateConnected(true)
-          }
-        )
+          api.rpc.chain.subscribeNewHeads((header) => {
+            console.log(`Chain is at block: #${header.number}`);
+            
+            if(!connected) {
+              updateConnected(true);
+            }
+
+            if(header.number.toNumber() !== lastBlock) {
+             updateLastBlock(header.number.toNumber());
+            }
+          })
       })
     );
   }, [lastBlock, connected]);
